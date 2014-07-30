@@ -42,6 +42,29 @@ public class DownFileInfoBean {
         this.downfile = downfile;
     }
 
+    /**
+     * 网络下载
+     * @param sURL
+     * @param sPath
+     * @param sName
+     * @param nSpiltter
+     */
+    public DownFileInfoBean(String sURL, String sPath, String sName, int nSpiltter) {
+        this(sURL, sPath,sName, nSpiltter,true,null);
+    }
+
+    /**
+     * 本地下载
+     * @param sPath
+     * @param sName
+     * @param nSpiltter
+     * @param downfile
+     */
+
+    public DownFileInfoBean( String sPath, String sName, int nSpiltter,File downfile) {
+        this(null, sPath,sName, nSpiltter,false,downfile);
+    }
+
     public File getDownfile() {
         return downfile;
     }

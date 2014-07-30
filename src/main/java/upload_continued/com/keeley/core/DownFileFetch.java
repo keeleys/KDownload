@@ -288,7 +288,8 @@ public class DownFileFetch extends Thread {
         return n;
     }
 
-    public void addListener(DownListener downListener) {
+    public DownFileFetch addListener(DownListener downListener) {
         this.downListener = downListener;
+        return this;
     }
 }
