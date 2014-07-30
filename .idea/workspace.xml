@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f217030f-cc6c-4fd0-a626-f679bcdbbab1" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="upload_continued.iws" />
@@ -16,7 +15,7 @@
     <file path="/TestDown.java" changelist="f217030f-cc6c-4fd0-a626-f679bcdbbab1" time="1406686648735" ignored="false" />
     <file path="/DownListen.java" changelist="f217030f-cc6c-4fd0-a626-f679bcdbbab1" time="1406627148501" ignored="false" />
     <file path="/a.dummy" changelist="f217030f-cc6c-4fd0-a626-f679bcdbbab1" time="1406627216691" ignored="false" />
-    <file path="/Dummy.txt" changelist="f217030f-cc6c-4fd0-a626-f679bcdbbab1" time="1406687608241" ignored="false" />
+    <file path="/Dummy.txt" changelist="f217030f-cc6c-4fd0-a626-f679bcdbbab1" time="1406687751098" ignored="false" />
     <file path="/MyEvent.java" changelist="f217030f-cc6c-4fd0-a626-f679bcdbbab1" time="1406627740340" ignored="false" />
     <file path="/DownListener.java" changelist="f217030f-cc6c-4fd0-a626-f679bcdbbab1" time="1406628760535" ignored="false" />
     <file path="/DownEvent.java" changelist="f217030f-cc6c-4fd0-a626-f679bcdbbab1" time="1406628288038" ignored="false" />
@@ -101,10 +100,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name=".gitignore" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="4" selection-start="141" selection-end="141" vertical-scroll-proportion="0.7564403">
+            <state line="17" column="21" selection-start="141" selection-end="141" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -119,10 +118,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="workspace.xml" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="workspace.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="54" column="73" selection-start="3984" selection-end="3984" vertical-scroll-proportion="0.0">
+            <state line="54" column="73" selection-start="3984" selection-end="3984" vertical-scroll-proportion="0.5507246">
               <folding />
             </state>
           </provider>
@@ -666,7 +665,11 @@
       <created>1406687611899</created>
       <updated>1406687611899</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="test">
+      <created>1406687753538</created>
+      <updated>1406687753538</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -866,16 +869,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="73" selection-start="3984" selection-end="3984" vertical-scroll-proportion="0.0">
+        <state line="17" column="21" selection-start="141" selection-end="141" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="4" selection-start="141" selection-end="141" vertical-scroll-proportion="0.7564403">
+        <state line="54" column="73" selection-start="3984" selection-end="3984" vertical-scroll-proportion="0.5507246">
           <folding />
         </state>
       </provider>
