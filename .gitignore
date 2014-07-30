@@ -7,13 +7,13 @@
 /bin
 build.sh
 integration-repo
-build
+/build/
 
 # IDEA metadata and output dirs
 *.iml
 *.ipr
 *.iws
-*.idea
+/.idea/
 out
 *.db
 .svn
