@@ -2,20 +2,11 @@ package upload_continued.com.keeley.core;
 
 import upload_continued.com.keeley.util.DownFileUtility;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-/**
- * 下载上传子线程 .
- * User: Administrator
- * Date: 14-7-29
- * Time: 下午2:18
- * To change this template use File | Settings | File Templates.
- */
 public class DownFileSplitterFetch extends Thread{
     String sURL; // 下载文件的地址
     long nStartPos; // 文件分段的开始位置
@@ -24,8 +15,6 @@ public class DownFileSplitterFetch extends Thread{
     boolean bDownOver = false; // 是否下载完成
     boolean bStop = false; // 停止下载
     DownFileAccess fileAccessI = null; // 文件对象
-    boolean fileflag; //是URL下载还是本地下载
-    File file = null;//本地下载文件
     boolean bFirst = true;
 
     /**
@@ -35,19 +24,15 @@ public class DownFileSplitterFetch extends Thread{
      * @param nStart
      * @param nEnd
      * @param id
-     * @param fileflag
-     * @param downfile
      * @throws IOException
      */
     public DownFileSplitterFetch(String sURL, String sName, long nStart, long nEnd,
-                                 int id,boolean fileflag,File downfile,boolean bFirst) throws IOException {
+                                 int id,boolean bFirst) throws IOException {
         this.sURL = sURL;
         this.nStartPos = nStart;
         this.nEndPos = nEnd;
         nThreadID = id;
         fileAccessI = new DownFileAccess(sName, nStartPos,bFirst);
-        this.fileflag = fileflag;
-        this.file = downfile;
         this.bFirst = bFirst;
     }
 
@@ -55,26 +40,7 @@ public class DownFileSplitterFetch extends Thread{
      * 线程执行
      */
     public void run() {
-        if(fileflag){
-            this.urldownload();
-        }else{
-            this.filedownload();
-        }
-    }
-
-    /**
-     * 打印回应的头信息
-     * @param con
-     */
-    public void logResponseHead(HttpURLConnection con) {
-        for (int i = 1;; i++) {
-            String header = con.getHeaderFieldKey(i);
-            if (header != null){
-                DownFileUtility.log(header + " : " + con.getHeaderField(header));
-            }else{
-                break;
-            }
-        }
+        this.urldownload();
     }
 
     /**
@@ -117,44 +83,6 @@ public class DownFileSplitterFetch extends Thread{
             }
         }
     }
-
-    /**
-     * 文件下载
-     */
-    private void filedownload(){
-        DownFileUtility.log("Thread " + nThreadID + " down filesize is "+(nEndPos-nStartPos));
-        DownFileUtility.log("Thread " + nThreadID + " start >> "+nStartPos +"------end >> "+nEndPos);
-        while (nStartPos < nEndPos && !bStop) {
-            try {
-                RandomAccessFile input = new RandomAccessFile(file,"r");
-                input.seek(nStartPos);
-                byte[] b = new byte[1024];
-                int nRead;
-                while ((nRead = input.read(b, 0, 1024)) > 0
-                        && nStartPos < nEndPos && !bStop) {
-                    if((nStartPos+nRead)>nEndPos)
-                    {
-                        nRead = (int)(nEndPos - nStartPos);
-                    }
-                    nStartPos += fileAccessI.write(b, 0, nRead);
-                }
-                fileAccessI.oSavedFile.close();
-                DownFileUtility.log("Thread " + nThreadID + " is over!");
-                input.close();
-                bDownOver = true;
-                input.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        if(!bDownOver){
-            if(nStartPos >= nEndPos){
-                bDownOver = true;
-            }
-        }
-        DownFileUtility.log("Thread " + nThreadID + "last start >> " + nStartPos);
-    }
-
     /**
      * 停止
      */

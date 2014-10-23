@@ -26,8 +26,6 @@ public class DownFileFetch extends Thread {
     boolean bStop = false; // 停止标志
     File tmpFile; // 文件下载的临时信息
     DataOutputStream output; // 输出到文件的输出流
-    boolean fileflag; //是本地上传还是远程下载的标志
-    File downfile; //本地文件下载
     int splitter = 0;
 
     /**
@@ -50,8 +48,6 @@ public class DownFileFetch extends Thread {
             nStartPos = new long[bean.getNSplitter()];
             nEndPos   = new long[bean.getNSplitter()];
         }
-        fileflag = bean.getFileflag();
-        downfile = bean.getDownfile();
         this.splitter = bean.getNSplitter();
     }
 
@@ -86,7 +82,7 @@ public class DownFileFetch extends Thread {
                 fileSplitterFetch[i] = new DownFileSplitterFetch(
                         siteInfoBean.getSSiteURL(), siteInfoBean.getSFilePath()
                         + File.separator + siteInfoBean.getSFileName()+"_"+i,
-                        nStartPos[i], nEndPos[i], i,fileflag,downfile,bFirst);
+                        nStartPos[i], nEndPos[i], i,bFirst);
                 DownFileUtility.log("Thread " + i + " , nStartPos = " + nStartPos[i]
                         + ", nEndPos = " + nEndPos[i]);
                 fileSplitterFetch[i].start();
@@ -112,7 +108,6 @@ public class DownFileFetch extends Thread {
             long endLength=hebinfile(siteInfoBean.getSFilePath()+ File.separator + siteInfoBean.getSFileName(),splitter);
             if(nFileLength-endLength==0){
                 deleteTempFile();
-
                 if(downListener!=null)
                     downListener.success();
             }
@@ -135,46 +130,37 @@ public class DownFileFetch extends Thread {
      */
     public long getFileSize() {
         int nFileLength = -1;
-        if(fileflag){
-            try {
-                URL url = new URL(siteInfoBean.getSSiteURL());
-                HttpURLConnection httpConnection = (HttpURLConnection) url
-                        .openConnection();
-                httpConnection.setRequestProperty("User-Agent", "NetFox");
-                int responseCode = httpConnection.getResponseCode();
-                if (responseCode >= 400) {
-                    processErrorCode(responseCode);
-                    //represent access is error
-                    return -2;
-                }
-                String sHeader;
-                for (int i = 1;; i++) {
-                    sHeader = httpConnection.getHeaderFieldKey(i);
-                    if (sHeader != null) {
-                        if (sHeader.equals("Content-Length")) {
-                            nFileLength = Integer.parseInt(httpConnection
-                                    .getHeaderField(sHeader));
-                            break;
-                        }
-                    } else {
+        try {
+            URL url = new URL(siteInfoBean.getSSiteURL());
+            HttpURLConnection httpConnection = (HttpURLConnection) url
+                    .openConnection();
+            httpConnection.setRequestProperty("User-Agent", "NetFox");
+            int responseCode = httpConnection.getResponseCode();
+            if (responseCode >= 400) {
+                processErrorCode(responseCode);
+                //represent access is error
+                return -2;
+            }
+            String sHeader;
+            for (int i = 1;; i++) {
+                sHeader = httpConnection.getHeaderFieldKey(i);
+                if (sHeader != null) {
+                    if (sHeader.equals("Content-Length")) {
+                        nFileLength = Integer.parseInt(httpConnection
+                                .getHeaderField(sHeader));
                         break;
                     }
+                } else {
+                    break;
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
             }
-            DownFileUtility.log(nFileLength);
-        }else{
-            try{
-                File myflie = downfile;
-                nFileLength = (int)myflie.length();
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-            DownFileUtility.log(nFileLength);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        DownFileUtility.log(nFileLength);
         return nFileLength;
     }
 
